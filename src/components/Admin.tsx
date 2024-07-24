@@ -1,8 +1,10 @@
 "use client";
 
-import { updatePortfolioItem } from "@/server/actions";
-import type { PortfolioItem } from "@/server/api";
 import { useFormState, useFormStatus } from "react-dom";
+import { updatePortfolioItem } from "@/server/actions";
+
+import type { UpdatePortfolioItemResponse } from "@/server/actions";
+import type { PortfolioItem } from "@/server/api";
 
 type AdminProps = {
    items: PortfolioItem[];
@@ -23,25 +25,32 @@ type AdminItemProps = {
 }
 
 function AdminItem({ item }: AdminItemProps) {
-   const [state, dispatch] = useFormState(updatePortfolioItem, item);
+   const [state, dispatch] = useFormState(updatePortfolioItem, { success: false, message: "" });
 
    return (
-      <form action={dispatch}>
-         <input type="text" name="id" defaultValue={state.id} hidden />
-         <input type="text" name="title" defaultValue={state.title} />
-         <input type="text" name="description" defaultValue={state.description} />
-         <input type="text" name="image" defaultValue={state.image} hidden />
-         <Submit />
-      </form>
+      <>
+         <form action={dispatch}>
+            <input type="text" name="id" defaultValue={item.id} hidden />
+            <input type="text" name="title" defaultValue={item.title} />
+            <input type="text" name="description" defaultValue={item.description} />
+            <input type="text" name="image" defaultValue={item.image} hidden />
+            <Submit state={state} />
+         </form>
+      </>
    )
 }
 
-function Submit() {
-   const status = useFormStatus();
+type SubmitProps = {
+   state: UpdatePortfolioItemResponse
+}
 
+function Submit({ state }: SubmitProps) {
+   const status = useFormStatus();
+   const message = status.pending ? "Submitting..." : state.message
    return (
-      <button disabled={status.pending}>
-         {status.pending ? "Submitting..." : "Submit"}
-      </button>
+      <>
+         <button disabled={status.pending}>Submit</button>
+         <p>{message}</p>
+      </>
    );
 }
