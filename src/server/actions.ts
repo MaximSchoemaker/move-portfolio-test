@@ -79,3 +79,30 @@ export async function updatePortfolioItem(prevState: UpdatePortfolioItemResponse
       return { success: false, message }
    }
 }
+
+export type DeletePortfolioItemResponse = {
+   success: boolean,
+   message: string
+}
+
+export async function deletePortfolioItem(id: string) {
+   try {
+      const response = await fetch(`https://${process.env.MOCK_API_KEY}.mockapi.io/api/v1/PortfolioItem/${id}`, {
+         method: "DELETE",
+         headers: { 'content-type': 'application/json' },
+      });
+
+      if (!response.ok) throw new Error(`Failed to delete portfolio item: ${response.statusText}`);
+
+      revalidatePath('/admin');
+      revalidatePath('/');
+
+      return { success: true, message: "Successfuly deleted portfolio item!" }
+
+   } catch (error) {
+      console.error(error);
+      let message = 'Unknown Error'
+      if (error instanceof Error) message = error.message
+      return { success: false, message }
+   }
+}

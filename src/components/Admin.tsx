@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { createPortfolioItem, updatePortfolioItem } from "@/server/actions";
+import { createPortfolioItem, updatePortfolioItem, deletePortfolioItem } from "@/server/actions";
 
 import type { PortfolioItem } from "@/server/api";
 import type { CreatePortfolioItemResponse } from "@/server/actions";
@@ -15,7 +15,10 @@ export default function Admin({ items }: AdminProps) {
    return (
       <main>
          {items.map(item => (
-            <UpdatePortfolioItem key={item.id} item={item} />
+            <div key={item.id}>
+               <UpdatePortfolioItem item={item} />
+               <DeletePortfolioItem id={item.id} />
+            </div>
          ))}
          <CreatePortfolioItem />
       </main>
@@ -78,4 +81,20 @@ function Submit({ text, pendingMessage, responseMessage }: SubmitProps) {
          <p>{message}</p>
       </>
    );
+}
+
+type DeletePortfolioItemProps = {
+   id: string;
+}
+
+function DeletePortfolioItem({ id }: DeletePortfolioItemProps) {
+
+   const onClick = async () => {
+      const response = await deletePortfolioItem(id);
+      alert(response.message);
+   }
+
+   return (
+      <button onClick={onClick}>Delete</button>
+   )
 }
