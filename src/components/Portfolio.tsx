@@ -10,10 +10,10 @@ type PortfolioProps = {
 export default function Portfolio({ items }: PortfolioProps) {
    return (
       <StyledList>
-         {items.map(item => (
-            <StyledListItem key={item.id}>
+         {items.map((item, index) => (
+            <StyledListItem key={item.id} $index={index}>
                <StyledListItemHeader>
-                  <StyledStar>✦</StyledStar>
+                  <StyledStar>✧</StyledStar>
                   <StyledTitle>{item.title}</StyledTitle>
                </StyledListItemHeader>
                <StyledListItemBody>
@@ -42,14 +42,19 @@ const StyledList = styled.ul`
    margin: 0 auto;
 `
 
-const StyledListItem = styled.li`
+const StyledListItem = styled.li<{ $index: number }>`
    margin-top: 2rem;
+   max-width: 500px;
+   /* &:nth-child(3n - 1) {
+      margin-top: 3.5rem;
+   } */
    &:nth-child(even) {
-      /* align-self: flex-end; */
       margin-top: 7rem;
    }
-   max-width: 500px;
-   
+
+   animation: appear 0.5s ease-out;
+   animation-delay: ${({ $index }) => $index * 0.1}s;
+   animation-fill-mode: backwards;
 `
 
 const StyledListItemHeader = styled.div`
