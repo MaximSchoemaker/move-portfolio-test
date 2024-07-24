@@ -7,7 +7,7 @@ export type PortfolioItem = {
 };
 
 export async function getPortfolioItems() {
-   const response = await fetch("https://66a0e0407053166bcabd3601.mockapi.io/api/v1/PortfolioItem", {
+   const response = await fetch(`https://${process.env.MOCK_API_KEY}.mockapi.io/api/v1/PortfolioItem`, {
       method: "GET",
       headers: { 'content-type': 'application/json' },
    });
