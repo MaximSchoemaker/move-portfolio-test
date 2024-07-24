@@ -1,0 +1,19 @@
+
+:root {
+   --color-text: #000;
+   --color-bg: #cbe7e6;
+   --color-accent: #3a1383;
+   --color-accent2: #f30;
+   --max-width: 1000px;
+}
+
+body {
+   margin: 0;
+   font-family: 'Times New Roman', Times, serif;
+   background-color: var(--color-bg);
+}
+
+a {
+   text-decoration: none;
+   color: currentColor;
+}
