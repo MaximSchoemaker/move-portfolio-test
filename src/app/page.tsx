@@ -1,9 +1,13 @@
+import Portfolio from "@/components/Portfolio";
+import { getPortfolioItems } from "@/server/api";
 
-export default function Home() {
+export default async function Home() {
+
+  const items = await getPortfolioItems();
 
   return (
     <main>
-      <h1>Portfolio</h1>
+      <Portfolio items={items} />
     </main>
   );
 }
