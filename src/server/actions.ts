@@ -11,12 +11,12 @@ export async function createPortfolioItem(prevState: CreatePortfolioItemResponse
    try {
       const title: string | null = formData.get('title') as string;
       const description: string | null = formData.get('description') as string;
-      const image: string | null = formData.get('image') as string;
+      const createdAt = new Date().toISOString();
 
       const data = {
+         createdAt,
          title,
          description,
-         image
       }
 
       const response = await fetch(`https://${process.env.MOCK_API_KEY}.mockapi.io/api/v1/PortfolioItem/`, {
@@ -50,13 +50,11 @@ export async function updatePortfolioItem(prevState: UpdatePortfolioItemResponse
       const id: string | null = formData.get('id') as string;
       const title: string | null = formData.get('title') as string;
       const description: string | null = formData.get('description') as string;
-      const image: string | null = formData.get('image') as string;
 
       const data = {
          id,
          title,
          description,
-         image
       }
 
       const response = await fetch(`https://${process.env.MOCK_API_KEY}.mockapi.io/api/v1/PortfolioItem/${id}`, {

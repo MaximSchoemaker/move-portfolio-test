@@ -1,3 +1,4 @@
+"use client"
 
 import { styled } from "styled-components"
 
@@ -14,4 +15,21 @@ export const StyledList = styled.ul`
    width: 100%;
    max-width: var(--max-width);
    margin: 0 auto;
+`
+
+export const StyledForm = styled.form`
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+`
+
+export const StyledInput = styled.input`
+   font-family: inherit;
+   font-size: 1rem;
+`
+
+export const StyledTextarea = styled.textarea`
+   min-height: 100px;
+   font-family: inherit;
+   font-size: 1rem;
 `

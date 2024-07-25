@@ -1,19 +1,24 @@
 "use client"
 
+import React from "react"
 import { styled } from "styled-components"
 
 type ItemContainerProps = {
    title: string,
    index: number,
+   topRightSlot?: React.ReactNode,
    children: React.ReactNode
 }
 
-export default function ItemContainer({ title, index, children }: ItemContainerProps) {
+export default function ItemContainer({ title, index, topRightSlot, children }: ItemContainerProps) {
    return (
       <StyledListItem $index={index}>
          <StyledListItemHeader>
-            <StyledStar>✧</StyledStar>
-            <StyledTitle>{title}</StyledTitle>
+            <StyledTitleContainer>
+               <StyledStar>✧</StyledStar>
+               <StyledTitle>{title}</StyledTitle>
+            </StyledTitleContainer>
+            {topRightSlot}
          </StyledListItemHeader>
          <StyledListItemBody>
             {children}
@@ -33,8 +38,13 @@ const StyledListItem = styled.li<{ $index: number }>`
    animation-delay: ${({ $index }) => $index * 0.1}s;
    animation-fill-mode: backwards;
 `
-
 const StyledListItemHeader = styled.div`
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+`
+
+const StyledTitleContainer = styled.div`
    gap: 0.5rem;
    display: flex;
    align-items: center;
