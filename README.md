@@ -1,8 +1,15 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Instructions
 
-First, run the development server:
+First, copy `.env.example` and rename it to `.env`. Set the `MOCK_API_KEY` to point to your mockapi.io endpoint.
+
+Then, install the dependencies :
+```bash
+pnpm i
+```
+
+Lastly, run the development server:
 
 ```bash
 pnpm dev
@@ -10,21 +17,15 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Performance
+I used Next.js 14 for this test. I load the data for the portfolio and admin panel in a server component. This uses a rendering technique called ISR (Incremental Static Regeneration). This means the portfolio and admin panel are initially rendered as static pages during build time. When a change is made to the data I call `revalidatePath` on both `/` and `/admin`, causing both page caches to be invalidated. The admin panel updates immediately and shows the new data. The portfolio page rerenders the first time it gets visited. After that both pages are static again, which makes them as performant as can be.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The about page is rendered using SSG (Static Site Generation) and gets generated at build time. Again, being as performant as can be.
 
-## Learn More
+## Testing
+I ran into a couple of issues with testing. I use `useFormState` and `useFormStatus` to control my forms. It appears jest is running a different version of react than Next.js. One where `useFormState` and `useFormStatus` are not available ([more information](https://stackoverflow.com/a/78736908)). So I ran out of time for writing proper tests for the Admin page.
 
-To learn more about Next.js, take a look at the following resources:
+I ran into another issue trying to test my server actions. `revalidatePath` throws an error and I couldn't get it to mock properly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Styling
+I was hoping to use Emotion for styling, but it is currently [not supported](https://nextjs.org/docs/app/building-your-application/styling/css-in-js) in app router. I decided to use Styled Components instead.
