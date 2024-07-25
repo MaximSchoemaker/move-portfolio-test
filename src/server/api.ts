@@ -4,6 +4,7 @@ export type PortfolioItem = {
    title: string;
    description: string;
    image: string;
+   url: string;
 };
 
 export async function getPortfolioItems() {

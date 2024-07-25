@@ -22,6 +22,7 @@ export default function CreatePortfolioItem() {
       <>
          <StyledForm action={dispatch} ref={ref}>
             <StyledInput type="text" name="title" placeholder="title" />
+            <StyledInput type="text" name="url" placeholder="url" />
             <StyledTextarea name="description" placeholder="description" />
             <SubmitButton text="Create" pendingMessage="Creating..." responseMessage={state.message} />
          </StyledForm>

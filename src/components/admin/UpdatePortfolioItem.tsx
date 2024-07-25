@@ -19,6 +19,7 @@ export default function UpdatePortfolioItem({ item }: UpdatePortfolioItemProps) 
          <StyledForm action={dispatch}>
             <input type="text" name="id" defaultValue={item.id} hidden />
             <StyledInput type="text" name="title" defaultValue={item.title} />
+            <StyledInput type="text" name="url" defaultValue={item.url} />
             <StyledTextarea name="description" defaultValue={item.description} />
             <SubmitButton text="Update" pendingMessage="Updating..." responseMessage={state.message} />
          </StyledForm>

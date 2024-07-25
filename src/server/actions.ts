@@ -10,12 +10,14 @@ export type CreatePortfolioItemResponse = {
 export async function createPortfolioItem(prevState: CreatePortfolioItemResponse, formData: FormData) {
    try {
       const title: string | null = formData.get('title') as string;
+      const url: string | null = formData.get('url') as string;
       const description: string | null = formData.get('description') as string;
       const createdAt = new Date().toISOString();
 
       const data = {
          createdAt,
          title,
+         url,
          description,
       }
 
@@ -49,11 +51,13 @@ export async function updatePortfolioItem(prevState: UpdatePortfolioItemResponse
    try {
       const id: string | null = formData.get('id') as string;
       const title: string | null = formData.get('title') as string;
+      const url: string | null = formData.get('url') as string;
       const description: string | null = formData.get('description') as string;
 
       const data = {
          id,
          title,
+         url,
          description,
       }
 

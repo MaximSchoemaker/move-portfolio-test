@@ -13,8 +13,10 @@ export default function Portfolio({ items }: PortfolioProps) {
    return (
       <StyledList>
          {items.map((item, index) => (
-            <ItemContainer key={item.id} title={item.title} index={index}>
-               <StyledText>{item.description}</StyledText>
+            <ItemContainer key={item.id} title={item.title} index={index} topRightSlot={
+               <StyledArrow href={item.url} target="_blank" rel="noreferrer">→</StyledArrow>
+            }>
+               <p>{item.description}</p>
                {item.image && <StyledImage src={item.image} alt={item.title} />}
             </ItemContainer>
          ))}
@@ -22,7 +24,13 @@ export default function Portfolio({ items }: PortfolioProps) {
    );
 }
 
-const StyledText = styled.p`
+const StyledArrow = styled.a`
+   font-size: 2rem;
+   font-weight: bold;
+
+   &:hover {
+      color: var(--color-accent2);
+   }
 `
 
 const StyledImage = styled.img`
