@@ -1,4 +1,4 @@
-import Admin from "@/components/Admin";
+import Admin from "@/components/admin/Admin";
 import { getPortfolioItems } from "@/server/api";
 
 export default async function Page() {

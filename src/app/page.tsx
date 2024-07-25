@@ -1,4 +1,4 @@
-import Portfolio from "@/components/Portfolio";
+import Portfolio from "@/components/portfolio/Portfolio";
 import { getPortfolioItems } from "@/server/api";
 
 export default async function Home() {
