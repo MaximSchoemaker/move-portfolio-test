@@ -28,8 +28,8 @@ export default function ItemContainer({ title, index, topRightSlot, children }: 
 }
 
 const StyledListItem = styled.li<{ $index: number }>`
+   list-style-type: none;
    margin-top: 2rem;
-   max-width: 500px;
    &:nth-child(even) {
       margin-top: 7rem;
    }
